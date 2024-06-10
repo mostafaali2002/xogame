@@ -1,6 +1,10 @@
 import 'dart:ffi';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:xogame/constant.dart';
+import 'package:xogame/features/home/views/home_screen_view.dart';
+import 'package:xogame/features/home/views/widgets/custom_button.dart';
 
 class GameScreen extends StatefulWidget {
   GameScreen({super.key, required this.player1, required this.player2});
@@ -77,9 +81,9 @@ class _GameScreenState extends State<GameScreen> {
           animType: AnimType.rightSlide,
           btnOkText: "Play Again",
           title: _winner == "X"
-              ? widget.player1 + "won !"
+              ? widget.player1 + " won "
               : _winner == "O"
-                  ? widget.player2 + "won! "
+                  ? widget.player2 + " won  "
                   : "It's a tie",
           btnOkOnPress: () {
             _resetGame();
@@ -92,21 +96,24 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(Style.kbackGroundColor),
+      backgroundColor: const Color(Style.kbackGroundColor),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 70,
+            const SizedBox(
+              height: 80,
             ),
             SizedBox(
-              height: 120,
+              height: 100,
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const Text(
                         "Turn: ",
                         style: TextStyle(
                             fontSize: 24,
@@ -121,31 +128,31 @@ class _GameScreenState extends State<GameScreen> {
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: _currentPlayer == "X"
-                                ? Color(0xFFE25041)
-                                : Color(0xFF1C8D9E)),
+                                ? const Color(0xFFE25041)
+                                : const Color(0xFF1C8D9E)),
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(10),
+                color: Color.fromARGB(255, 67, 65, 65),
+                borderRadius: BorderRadius.circular(20),
               ),
-              margin: EdgeInsets.all(5),
+              margin: const EdgeInsets.all(15),
               child: GridView.builder(
                 itemCount: 9,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3),
                 itemBuilder: (context, index) {
                   int row = index ~/ 3;
@@ -153,19 +160,19 @@ class _GameScreenState extends State<GameScreen> {
                   return GestureDetector(
                     onTap: () => _makeMove(row, col),
                     child: Container(
-                      margin: EdgeInsets.all(4),
+                      margin: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: Colors.yellow,
+                          color: const Color(0xff191616),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
                         child: Text(
                           _board[row][col],
                           style: TextStyle(
-                            fontSize: 120,
+                            fontSize: 100,
                             fontWeight: FontWeight.bold,
                             color: _board[row][col] == "X"
-                                ? Color(0xFFE25041)
-                                : Color(0xFF1C8D9E),
+                                ? const Color(0xFFE25041)
+                                : const Color(0xFF1C8D9E),
                           ),
                         ),
                       ),
@@ -174,6 +181,31 @@ class _GameScreenState extends State<GameScreen> {
                 },
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CustmoButton(
+                    btnText: "Reset Game",
+                    color: const Color(Style.KbtnColorgreen),
+                    callback: () => _resetGame(),
+                  ),
+                  CustmoButton(
+                    btnText: "Restart Game",
+                    color: const Color(Style.KbtnColorred),
+                    callback: () {
+                      Navigator.pop(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()));
+                      widget.player1 = "";
+                      widget.player2 = "";
+                    },
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

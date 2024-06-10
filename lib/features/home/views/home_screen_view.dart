@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:xo_game/constant.dart';
-import 'package:xo_game/feature/home/presentation/views/game_screen_view.dart';
-import 'package:xo_game/feature/home/presentation/widgets/custom_button.dart';
-import 'package:xo_game/feature/home/presentation/widgets/custom_text_form.dart';
+import 'package:xogame/constant.dart';
+import 'package:xogame/features/home/views/game_screen_view.dart';
+import 'package:xogame/features/home/views/widgets/custom_button.dart';
+import 'package:xogame/features/home/views/widgets/custom_text_form.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontStyle: FontStyle.normal),
               ),
               const SizedBox(
-                height: 80,
+                height: 60,
               ),
               CustomTextForm(hintText: "player1", player: player1),
               const SizedBox(
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               CustmoButton(
                 btnText: "Start Game",
-                color: const Color((Style.KbtnColor)),
+                color: const Color((Style.KbtnColorgreen)),
                 callback: () {
                   if (_formKey.currentState!.validate()) {
                     Navigator.push(

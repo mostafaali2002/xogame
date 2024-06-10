@@ -19,9 +19,7 @@ class CustmoButton extends StatelessWidget {
       onPressed: callback,
       child: Text(
         btnText,
-        style: const TextStyle(
-          fontSize: 20,
-        ),
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
       ),
     );
   }
